@@ -1,0 +1,15 @@
+users:
+  - name: qbe
+    ssh_authorized_keys:
+      - ${ssh_authorized_key}
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    groups: sudo
+    shell: /bin/bash
+runcmd:
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - echo 'AllowUsers qbe' >> /etc/ssh/sshd_config
+  - systemctl restart ssh
+package_update: true
+packages:
+  - docker.io
