@@ -40,7 +40,7 @@ data "template_file" "bootstrap-vm" {
 
 variable "image_tag" {
   type        = string
-  description = "Docker image tag that will be run on this server"
+  description = "Docker image tag that will be run on the server"
 }
 
 variable "ssh_authorized_key" {
