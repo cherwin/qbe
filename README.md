@@ -46,7 +46,7 @@ Test the endpoint.
 
 ### SSH to Virtual Machine
 
-This command only works with Terraform and SSH installed locally. I assume that you have `ssh-agent` configured correctly.
+This command is for you convenience and only works with Terraform and SSH installed locally. I assume that you have `ssh-agent` configured correctly. Otherwise SSH manually.
 
     make shell
 
