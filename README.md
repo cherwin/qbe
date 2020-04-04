@@ -1,4 +1,4 @@
-# QBE
+# quick-bootstrap-engine
 
 ### Preamble
 
