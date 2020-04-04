@@ -64,8 +64,8 @@ terraform-apply: sanity_check
 terraform-destroy: sanity_check
 	cd terraform && \
 	terraform init && \
-	TF_VAR_image_tag=${IMAGE}:${VERSION} \
-	TF_VAR_ssh_authorized_key="${SSH_AUTHORIZED_KEY}" \
+	TF_VAR_image_tag="null" \
+	TF_VAR_ssh_authorized_key="null" \
 	terraform destroy
 
 terraform-clean:
