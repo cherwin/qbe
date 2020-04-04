@@ -9,6 +9,11 @@ This project creates a (self signed) HTTPS endpoint `/hello` which returns `worl
 We use Terraform to create a Virtual Machine in Digital Ocean. The VM gets provisioned with NGINX on top of docker via cloud-init. You will not be prompted for confirmation to apply the `terraform plan`.
 
 ---
+
+### Prerequisites
+
+To deploy you will only need `docker` and `make` installed locally. Any reasonably up to date version will probably do. See [Dependencies](#Dependencies) for the exact versions used in this project. I assume that you are using MacOS or Linux.
+
 ### Export Variables
 
 Export your Personal Access Token and authorized key in order to run Terraform. I recommend [direnv](https://direnv.net/) to manage your exports.
@@ -16,13 +21,13 @@ Export your Personal Access Token and authorized key in order to run Terraform. 
     export DIGITALOCEAN_TOKEN="..."
     export SSH_AUTHORIZED_KEY="..."
 
-See [How to Create a Personal Access Token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/) for more information.
+See [How to Create a Personal Access Token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/) and [Creating an SSH Key Pair for User Authentication](https://www.ssh.com/ssh/keygen/#creating-an-ssh-key-pair-for-user-authentication) for more information.
 
 ### Deploy
 
 Deploy a VM provisoned with the pre-baked docker image `cherwin/qbe`.
 
-    docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -v ${PWD}:/src cherwin/make deploy
+    make deploy
 
 ### Deploy with custom docker image
 
@@ -31,26 +36,25 @@ Build and push IMAGE sourced from [nginx/Dockerfile](nginx/Dockerfile) before ru
     export IMAGE=repo/tag
     export VERSION=0.1.0
 
-    docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -e IMAGE -e VERSION -v ${PWD}:/src cherwin/make deploy
-
-
-### SSH to Virtual Machine
-
-    make shell
-
-You might have to wait a little while for the daemon to come up.
+    make custom-deploy
 
 ### Test
 
 Test the endpoint.
 
-    docker run -t -v ${PWD}:/src cherwin/make test
+    make test
+
+### SSH to Virtual Machine
+
+This command only works with Terraform and SSH installed locally. I assume that you have `ssh-agent` configured correctly.
+
+    make shell
 
 ### Cleanup
 
 Destroy the VM and remove the generated files. You will be prompted for confirmation.
 
-    docker run -it -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -v ${PWD}:/src cherwin/make clean
+    make clean
 
 ### Notes
 
@@ -64,3 +68,4 @@ This project has been tested with the following package versions.
 * GNU Make 4.2.1
 * Terraform v0.12.24
 * cURL 7.61.1
+* OpenSSH_7.9p1
