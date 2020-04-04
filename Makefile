@@ -1,4 +1,4 @@
-MAKEFILE ?= main.Makefile
+MAKEFILE ?= Makefile.main
 
 
 deploy:
