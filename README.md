@@ -6,7 +6,7 @@ This project creates a (self signed) HTTPS endpoint `/hello` which returns `worl
 
 ##### How does this work?
 
-We use Terraform to create a Virtual Machine in Digital Ocean. The VM gets provisioned with NGINX on top of docker via cloud-init. You will not be prompted for confirmation to apply the `terraform plan`.
+We use Terraform to create a Virtual Machine in Digital Ocean. The VM gets provisioned with NGINX on top of docker via cloud-init.
 
 ---
 

@@ -61,12 +61,21 @@ terraform-apply: sanity_check
 		-auto-approve \
 		${TFPLAN}
 
+terraform-plan-destroy: sanity_check
+	cd terraform && \
+	terraform init && \
+	TF_VAR_image_tag="null" \
+	TF_VAR_ssh_authorized_key="null" \
+	terraform plan \
+		-destroy
+
 terraform-destroy: sanity_check
 	cd terraform && \
 	terraform init && \
 	TF_VAR_image_tag="null" \
 	TF_VAR_ssh_authorized_key="null" \
-	terraform destroy
+	terraform destroy \
+	-auto-approve
 
 terraform-clean:
 	rm -f terraform/terraform.tfstate*; \
@@ -82,7 +91,7 @@ deploy: terraform-plan terraform-apply
 
 all: certificates docker-build docker-push terraform-plan terraform-apply
 
-clean: terraform-destroy terraform-clean certificates-clean
+clean: terraform-plan-destroy terraform-destroy terraform-clean certificates-clean
 
 # Debug targets
 test:
