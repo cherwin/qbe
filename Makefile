@@ -1,11 +1,11 @@
-MAKEFILE ?= main.Makefile
+MAKEFILE ?= Makefile.main
 
 
 deploy:
-	docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -v ${PWD}:/src cherwin/make -f ${MAKEFILE} deploy
+	docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -v ${PWD}:/src cherwin/make deploy -f ${MAKEFILE}
 
 custom-deploy:
-	docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -e IMAGE -e VERSION -v ${PWD}:/src cherwin/make -f ${MAKEFILE} deploy
+	docker run -e DIGITALOCEAN_TOKEN -e SSH_AUTHORIZED_KEY -e IMAGE -e VERSION -v ${PWD}:/src cherwin/make deploy -f ${MAKEFILE}
 
 test:
 	docker run -t -v ${PWD}:/src cherwin/make test -f ${MAKEFILE}
@@ -15,13 +15,13 @@ clean:
 
 # Below only works with dependencies installed locally
 all:
-	make -f ${MAKEFILE} all
+	make all -f ${MAKEFILE}
 
 shell:
-	make -f ${MAKEFILE} shell
+	make shell -f ${MAKEFILE}
 
 tail:
-	make -f ${MAKEFILE} tail
+	make tail -f ${MAKEFILE}
 
 watch:
-	make -f ${MAKEFILE} watch
+	make watch -f ${MAKEFILE}
