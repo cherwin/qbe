@@ -10,6 +10,4 @@ runcmd:
   - sed -i -e '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
   - echo 'AllowUsers qbe' >> /etc/ssh/sshd_config
   - systemctl restart ssh
-package_update: true
-packages:
-  - docker.io
+
