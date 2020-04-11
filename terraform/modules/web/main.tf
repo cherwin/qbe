@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "this" {
-  image  = "ubuntu-18-04-x64"
+  image  = "docker-18-04"
   name   = "web-1"
   region = "lon1"
   size   = "s-1vcpu-1gb"
