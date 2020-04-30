@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Firewall rules
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -p tcp -s 0.0.0.0/0 --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables --policy INPUT DROP
+
+# Run web server
+docker run \
+    --name hello-world \
+    --detach \
+    --publish 443:9443 \
+    --restart always \
+    ${image_tag}
